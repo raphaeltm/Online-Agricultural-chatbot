@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth/next";
+import { getServerSession } from "@/modules/auth/lib/get-server-session/get-server-session";
 import { encode } from "next-auth/jwt";
-import { authOptions } from "../../auth/[...nextauth]/constants";
 
 export async function POST(req: NextRequest) {
   try {
     // Check if user is authenticated
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession();
 
     if (!session || !session.user) {
       return NextResponse.json(
